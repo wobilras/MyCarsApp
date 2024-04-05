@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MyCarsApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textLogin">Логин</string>
+    <string name="textPass">Пароль</string>
+    <string name="fuelLvl">Уровень топлива</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="addAuto">Добавьте фото авто с каждой стороны</string>
+    <string name="end">Завершить</string>
+
+</resources>
