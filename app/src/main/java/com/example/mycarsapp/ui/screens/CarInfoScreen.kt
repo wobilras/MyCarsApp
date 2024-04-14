@@ -1,4 +1,4 @@
-package com.example.mycarsapp.ui
+package com.example.mycarsapp.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,13 +36,13 @@ fun CarInfoScreen(car: Car,  navController: NavController) {
             .padding(16.dp)
     ) {
         Row {
-            Text(text = car.name)
+            Text(text = car.name!!)
             Spacer(modifier = Modifier.weight(1f, true))
-            Text(text = car.licensePlate)
+            Text(text = car.licensePlate!!)
         }
         Spacer(modifier = Modifier.height(16.dp))
         Image(
-            painter = painterResource(id = car.imageResId),
+            painter = painterResource(id = car.imageResId!!),
             contentDescription = "Car Image",
             modifier = Modifier
                 .fillMaxWidth()

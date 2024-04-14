@@ -1,4 +1,4 @@
-package com.example.mycarsapp.ui
+package com.example.mycarsapp.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,10 +32,10 @@ fun LoginScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .paint(
-                painterResource(id = R.drawable.auto_reglog),
-                contentScale = ContentScale.FillBounds
-            )
+            //.paint(
+                //painterResource(id = R.drawable.auto_reglog),
+               // contentScale = ContentScale.FillBounds
+            //)
             .padding(16.dp)
     ) {
         Text(text = "Добро пожаловать!",

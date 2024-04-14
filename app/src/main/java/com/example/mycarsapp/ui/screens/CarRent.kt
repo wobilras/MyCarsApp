@@ -1,4 +1,4 @@
-package com.example.mycarsapp.ui
+package com.example.mycarsapp.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

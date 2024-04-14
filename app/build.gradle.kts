@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -18,6 +19,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        //buildConfigField("String", "MAPKIT_API_KEY", "\"${mapKitApiKey}\"")
     }
 
     buildTypes {
@@ -52,6 +54,10 @@ android {
 dependencies {
     //navigation
     implementation ("androidx.navigation:navigation-compose:2.7.7")
+    //yandex maps
+    implementation("com.yandex.android:maps.mobile:4.5.1-lite")
+    //firebase
+    implementation("com.google.firebase:firebase-database:20.3.1")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")

@@ -27,6 +27,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.mycarsapp.R
 import com.example.mycarsapp.data.carList
+import com.example.mycarsapp.ui.screens.AccountScreen
+import com.example.mycarsapp.ui.screens.CarInfoScreen
+import com.example.mycarsapp.ui.screens.CarListScreen
+import com.example.mycarsapp.ui.screens.CarRent
+import com.example.mycarsapp.ui.screens.EndOfRent
+import com.example.mycarsapp.ui.screens.LoginScreen
+import com.example.mycarsapp.ui.screens.MapScreen
+import com.example.mycarsapp.ui.screens.RegistrationScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
