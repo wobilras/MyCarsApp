@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "487708230829",
+    "firebase_url": "https://sharingapp-9ac78-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "sharingapp-9ac78",
+    "storage_bucket": "sharingapp-9ac78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487708230829:android:1d137317a0d4729b9bb224",
+        "android_client_info": {
+          "package_name": "com.example.mycarsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlGfGGi_xBZt_MzgEZ1oPtUP1BAilf-84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
