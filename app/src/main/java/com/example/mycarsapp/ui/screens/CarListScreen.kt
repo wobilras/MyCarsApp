@@ -1,5 +1,6 @@
 package com.example.mycarsapp.ui.screens
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,6 +26,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -39,7 +42,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -49,8 +57,11 @@ import androidx.compose.ui.unit.sp
 import com.example.mycarsapp.R
 import com.example.mycarsapp.data.Car
 import com.example.mycarsapp.data.SearchStatus
+import com.example.mycarsapp.data.addToSearchHistory
 import com.example.mycarsapp.data.carList
+import com.example.mycarsapp.data.clearSearchHistory
 import com.example.mycarsapp.data.firebaseGetCar
+import com.example.mycarsapp.data.getSearchHistory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,6 +72,8 @@ fun CarListScreen(onCarSelected: (Car) -> Unit) {
     var searchText by rememberSaveable { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     var searchStatus by remember { mutableStateOf(SearchStatus.LOADING) }
+    val context = LocalContext.current
+    var showSearchHistory by remember { mutableStateOf(false) }
 
     Column {
         TextField(
@@ -68,7 +81,10 @@ fun CarListScreen(onCarSelected: (Car) -> Unit) {
             onValueChange = { searchText = it },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(10.dp)
+                .onFocusChanged { focusState ->
+                    showSearchHistory = focusState.isFocused
+                },
             placeholder = { Text("Search...") },
             singleLine = true,
             trailingIcon = {
@@ -83,17 +99,33 @@ fun CarListScreen(onCarSelected: (Car) -> Unit) {
                             }
                     )
                 }
-            }
+            },
+            keyboardActions = KeyboardActions(onAny = {
+                addToSearchHistory(context, searchText)
+            })
         )
         key(searchText) {
             firebaseGetCar(searchText) { cars, status ->
                 carList = cars
                 searchStatus = status
             }
+
+            if (showSearchHistory) {
+                SearchHistory(
+                    context,
+                    onItemClick = { selectedItem ->
+                        searchText = selectedItem
+                    },
+                    onClearHistoryClick = {
+                        clearSearchHistory(context)
+                    }
+                )
+            }
             when (searchStatus) {
                 SearchStatus.LOADING -> {
                     CircularProgressIndicator(modifier = Modifier.padding(16.dp))
                 }
+
                 SearchStatus.SUCCESS -> {
                     LazyColumn {
                         items(carList) { car ->
@@ -101,6 +133,7 @@ fun CarListScreen(onCarSelected: (Car) -> Unit) {
                         }
                     }
                 }
+
                 SearchStatus.ERROR -> {
                     Column(
                         modifier = Modifier.fillMaxSize(),
@@ -126,18 +159,44 @@ fun CarListScreen(onCarSelected: (Car) -> Unit) {
                         }
                     }
                 }
+
                 SearchStatus.ERROR_NOT_FOUND -> {
                     Text("Ничего не найдено", modifier = Modifier.padding(16.dp))
                 }
             }
         }
+    }
+}
 
-        /*
-        LazyColumn {
-            items(carList) { car ->
-                CarListItem(car = car) { onCarSelected(car) }
-            }
-        }*/
+@Composable
+fun SearchHistory(
+    context: Context,
+    onItemClick: (String) -> Unit,
+    onClearHistoryClick: () -> Unit
+) {
+    val history = remember { getSearchHistory(context) }
+
+    LazyColumn {
+        items(history) { item ->
+            Text(
+                text = item,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .clickable { onItemClick(item) }
+            )
+        }
+    }
+    Button(
+        onClick = { onClearHistoryClick() },
+        modifier = Modifier
+            .fillMaxWidth(),
+        colors = ButtonDefaults.buttonColors(Color.Black)
+    ) {
+        Text(
+            "Очистить историю",
+            style = LocalTextStyle.current
+        )
     }
 }
 
