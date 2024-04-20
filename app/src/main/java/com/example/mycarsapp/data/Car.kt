@@ -1,6 +1,5 @@
 package com.example.mycarsapp.data
 
-import com.example.mycarsapp.R
 
 data class Car(
     val id: Int? = 0,
@@ -15,7 +14,8 @@ data class Car(
 enum class SearchStatus {
     LOADING,
     SUCCESS,
-    ERROR
+    ERROR,
+    ERROR_NOT_FOUND
 }
 /*val carList = listOf(
     Car(1,"Toyota Camry", R.drawable.ic_launcher_foreground, 20.0f, "1 km", "B007OP87",100),

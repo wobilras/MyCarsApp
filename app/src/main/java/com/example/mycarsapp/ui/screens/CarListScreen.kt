@@ -31,6 +31,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -61,14 +62,6 @@ fun CarListScreen(onCarSelected: (Car) -> Unit) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var searchStatus by remember { mutableStateOf(SearchStatus.LOADING) }
 
-    DisposableEffect(searchText) {
-        firebaseGetCar(searchText) { cars, status ->
-            carList = cars
-            searchStatus = status
-        }
-        onDispose { }
-    }
-
     Column {
         TextField(
             value = searchText,
@@ -92,47 +85,53 @@ fun CarListScreen(onCarSelected: (Car) -> Unit) {
                 }
             }
         )
-        when (searchStatus) {
-            SearchStatus.LOADING -> {
-                CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+        key(searchText) {
+            firebaseGetCar(searchText) { cars, status ->
+                carList = cars
+                searchStatus = status
             }
-            SearchStatus.SUCCESS -> {
-                if (carList.isEmpty()) {
-                    Text("No results found", modifier = Modifier.padding(16.dp))
-                } else {
+            when (searchStatus) {
+                SearchStatus.LOADING -> {
+                    CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+                }
+                SearchStatus.SUCCESS -> {
                     LazyColumn {
                         items(carList) { car ->
                             CarListItem(car = car) { onCarSelected(car) }
                         }
                     }
                 }
-            }
-            SearchStatus.ERROR -> {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text("Error occurred", modifier = Modifier.padding(16.dp))
-                    Button(
-                        onClick = {
-                            searchStatus = SearchStatus.LOADING
-                            CoroutineScope(Dispatchers.IO).launch {
-                                firebaseGetCar(searchText) { cars, status ->
-                                    carList = cars
-                                    searchStatus = status
-                                }
-                            }
-                        },
-                        modifier = Modifier.padding(8.dp),
-                        colors = ButtonDefaults.buttonColors(Color.Black)
-
+                SearchStatus.ERROR -> {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text("Refresh")
+                        Text("Error occurred", modifier = Modifier.padding(16.dp))
+                        Button(
+                            onClick = {
+                                searchStatus = SearchStatus.LOADING
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    firebaseGetCar(searchText) { cars, status ->
+                                        carList = cars
+                                        searchStatus = status
+                                    }
+                                }
+                            },
+                            modifier = Modifier.padding(8.dp),
+                            colors = ButtonDefaults.buttonColors(Color.Black)
+
+                        ) {
+                            Text("Refresh")
+                        }
                     }
+                }
+                SearchStatus.ERROR_NOT_FOUND -> {
+                    Text("Ничего не найдено", modifier = Modifier.padding(16.dp))
                 }
             }
         }
+
         /*
         LazyColumn {
             items(carList) { car ->

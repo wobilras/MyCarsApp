@@ -23,12 +23,12 @@ fun firebaseGetCar(searchText: String, onDataLoaded: (ArrayList<Car>, SearchStat
                         }
                     }
                     if (carList.isEmpty()) {
-                        onDataLoaded(carList, SearchStatus.ERROR)
+                        onDataLoaded(carList, SearchStatus.ERROR_NOT_FOUND)
                     } else {
                         onDataLoaded(carList, SearchStatus.SUCCESS)
                     }
                 } else {
-                    onDataLoaded(carList, SearchStatus.ERROR)
+                    onDataLoaded(carList, SearchStatus.ERROR_NOT_FOUND)
                 }
             }
 
