@@ -23,3 +23,13 @@ fun clearSearchHistory(context: Context) {
     val sharedPreferences = context.getSharedPreferences("search_history", Context.MODE_PRIVATE)
     sharedPreferences.edit().remove("history").apply()
 }
+
+fun setThemeState(context: Context, isDarkTheme: Boolean){
+    val sharedPreferences = context.getSharedPreferences("theme_state", Context.MODE_PRIVATE)
+    sharedPreferences.edit().putBoolean("state",isDarkTheme).apply()
+}
+
+fun getThemeState(context: Context): Boolean{
+    val sharedPreferences = context.getSharedPreferences("theme_state", Context.MODE_PRIVATE)
+    return sharedPreferences.getBoolean("state", false)
+}

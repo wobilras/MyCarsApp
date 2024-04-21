@@ -14,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidedValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,6 +36,7 @@ import com.example.mycarsapp.ui.screens.EndOfRent
 import com.example.mycarsapp.ui.screens.LoginScreen
 import com.example.mycarsapp.ui.screens.MapScreen
 import com.example.mycarsapp.ui.screens.RegistrationScreen
+import com.example.mycarsapp.ui.screens.SettingsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -111,10 +113,9 @@ fun MainContainer() {
                     userPhotoResId = R.drawable.ic_launcher_foreground,
                     userRating = 5,
                     tripsCompleted = 12,
-                    fine = 1
-                ) {
-                    //navController.navigate("imageDownloadScreen")
-                }
+                    fine = 1,
+                    navController = navController
+                ) {}
             }
             composable("carListScreen") {
                 CarListScreen { car ->
@@ -140,6 +141,9 @@ fun MainContainer() {
             }
             composable("endOfRent"){
                 EndOfRent(navController)
+            }
+            composable("settingsScreen"){
+                SettingsScreen()
             }
         }
     }

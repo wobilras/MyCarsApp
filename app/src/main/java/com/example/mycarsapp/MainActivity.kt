@@ -6,24 +6,34 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
+import com.example.mycarsapp.data.getThemeState
 import com.example.mycarsapp.ui.MainContainer
+import com.example.mycarsapp.ui.screens.LocalFinish
 import com.example.mycarsapp.ui.theme.MyCarsAppTheme
-import com.yandex.mapkit.MapKitFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyCarsAppTheme {
+            fun restartActivity(){
+                finish()
+                startActivity(intent)
+            }
+            val darkTheme = getThemeState(LocalContext.current)
+            MyCarsAppTheme(darkTheme = darkTheme, dynamicColor = false) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainContainer()
+                    CompositionLocalProvider(LocalFinish provides {
+                        restartActivity()
+                    }) {
+                        MainContainer()
+                    }
                 }
             }
         }

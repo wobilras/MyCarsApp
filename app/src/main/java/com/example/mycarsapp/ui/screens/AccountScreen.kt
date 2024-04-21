@@ -18,9 +18,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mycarsapp.R
+import androidx.navigation.NavController
 
 @Composable
 fun AccountScreen(
@@ -29,6 +28,7 @@ fun AccountScreen(
     userRating: Int,
     tripsCompleted: Int,
     fine: Int,
+    navController: NavController,
     onEditProfileClick: () -> Unit
 ) {
     Column (
@@ -70,17 +70,12 @@ fun AccountScreen(
             Text(text = "Поддержка",
                 color = Color.White)
         }
+        Button(onClick = { navController.navigate("settingsScreen") },
+            colors = ButtonDefaults.buttonColors(Color.Black)) {
+            Text(text = "Настройки",
+                color = Color.White)
+        }
         Text(text = "https://yandex.ru/legal/maps_termsofuse - " +
                 "«Условия использования сервиса Яндекс.Карты")
     }
-}
-
-@Preview
-@Composable
-fun AccountScreenPreview() {
-    AccountScreen(userName = "Wob",
-        userPhotoResId = R.drawable.ic_launcher_foreground,
-        userRating = 5,
-        tripsCompleted = 7,
-        fine = 0) {}
 }
