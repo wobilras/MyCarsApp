@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -61,19 +60,19 @@ fun AccountScreen(
         }
 
         Button(onClick = { /* Handle edit profile click */ },
-            colors = ButtonDefaults.buttonColors(Color.Black)) {
+            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)) {
             Text(text = "Редактировать данные",
-                color = Color.White)
+                color = MaterialTheme.colorScheme.secondary)
         }
         Button(onClick = { /* TODO */ },
-            colors = ButtonDefaults.buttonColors(Color.Black)) {
+            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)) {
             Text(text = "Поддержка",
-                color = Color.White)
+                color = MaterialTheme.colorScheme.secondary)
         }
         Button(onClick = { navController.navigate("settingsScreen") },
-            colors = ButtonDefaults.buttonColors(Color.Black)) {
+            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)) {
             Text(text = "Настройки",
-                color = Color.White)
+                color = MaterialTheme.colorScheme.secondary)
         }
         Text(text = "https://yandex.ru/legal/maps_termsofuse - " +
                 "«Условия использования сервиса Яндекс.Карты")
