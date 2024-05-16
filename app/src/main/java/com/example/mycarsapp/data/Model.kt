@@ -11,12 +11,22 @@ data class Car(
     val fuelLevel: Int? = 0
 )
 
+data class User(
+    val uid: String,
+    val userName: String,
+    val userPhotoResId: Int,
+    val userRating: Int,
+    val tripsCompleted: Int,
+    val fine: Int
+)
+
 enum class SearchStatus {
     LOADING,
     SUCCESS,
     ERROR,
     ERROR_NOT_FOUND
 }
+
 /*val carList = listOf(
     Car(1,"Toyota Camry", R.drawable.ic_launcher_foreground, 20.0f, "1 km", "B007OP87",100),
     Car(2,"Honda Civic", R.drawable.ic_launcher_foreground, 18.5f, "2 km","B007OP87", 95),

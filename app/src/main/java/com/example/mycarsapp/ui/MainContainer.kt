@@ -1,5 +1,6 @@
 package com.example.mycarsapp.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -14,7 +15,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ProvidedValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -98,52 +98,58 @@ fun MainContainer() {
             }
         }
     ) { innerPadding ->
-        val modifier = Modifier.padding(innerPadding)
-
-        NavHost(
-            navController = navController,
-            startDestination = "loginScreen"
-        ) {
-            composable("loginScreen") {
-                LoginScreen(navController)
-            }
-            composable("accountScreen") {
-                AccountScreen(
-                    userName = "Jone Brit",
-                    userPhotoResId = R.drawable.ic_launcher_foreground,
-                    userRating = 5,
-                    tripsCompleted = 12,
-                    fine = 1,
-                    navController = navController
-                ) {}
-            }
-            composable("carListScreen") {
-                CarListScreen { car ->
-                    navController.navigate("carInfoScreen/${car.name}")
+        Box(modifier = Modifier.padding(innerPadding)) {
+            NavHost(
+                navController = navController,
+                startDestination = "loginScreen"
+            ) {
+                composable("loginScreen") {
+                    LoginScreen(navController)
                 }
-            }
-            composable("registrationScreen"){
-                RegistrationScreen(navController)
-            }
-            composable("mapScreen"){
-                MapScreen()
-            }
-            composable(
-                "carInfoScreen/{carName}",
-                arguments = listOf(navArgument("carName") { type = NavType.StringType })
-            ) { backStackEntry ->
-                val carName = backStackEntry.arguments?.getString("carName") ?: ""
-                val car = carList.find { it.name == carName } ?: carList.first()
-                CarInfoScreen(car = car, navController)
-            }
-            composable("carRent"){
-                CarRent(carName = "Civ", licensePlate = "B004KO69", fuelLevel = 100, bookingTime = "23 mins", navController) {}
-            }
-            composable("endOfRent"){
-                EndOfRent(navController)
-            }
-            composable("settingsScreen"){
-                SettingsScreen()
+                composable("accountScreen") {
+                    AccountScreen(
+                        userName = "Jone Brit",
+                        userPhotoResId = R.drawable.ic_launcher_foreground,
+                        userRating = 5,
+                        tripsCompleted = 12,
+                        fine = 1,
+                        navController = navController
+                    ) {}
+                }
+                composable("carListScreen") {
+                    CarListScreen { car ->
+                        navController.navigate("carInfoScreen/${car.name}")
+                    }
+                }
+                composable("registrationScreen") {
+                    RegistrationScreen(navController)
+                }
+                composable("mapScreen") {
+                    MapScreen()
+                }
+                composable(
+                    "carInfoScreen/{carName}",
+                    arguments = listOf(navArgument("carName") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val carName = backStackEntry.arguments?.getString("carName") ?: ""
+                    val car = carList.find { it.name == carName } ?: carList.first()
+                    CarInfoScreen(car = car, navController)
+                }
+                composable("carRent") {
+                    CarRent(
+                        carName = "Civ",
+                        licensePlate = "B004KO69",
+                        fuelLevel = 100,
+                        bookingTime = "23 mins",
+                        navController
+                    ) {}
+                }
+                composable("endOfRent") {
+                    EndOfRent(navController)
+                }
+                composable("settingsScreen") {
+                    SettingsScreen()
+                }
             }
         }
     }

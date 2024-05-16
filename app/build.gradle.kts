@@ -57,7 +57,8 @@ dependencies {
     //yandex maps
     implementation("com.yandex.android:maps.mobile:4.5.1-lite")
     //firebase
-    implementation("com.google.firebase:firebase-database:20.3.1")
+    implementation("com.google.firebase:firebase-database:21.0.0")
+    implementation("com.google.firebase:firebase-auth:23.0.0")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")

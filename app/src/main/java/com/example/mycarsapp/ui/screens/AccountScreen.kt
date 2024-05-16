@@ -69,8 +69,7 @@ fun AccountScreen(
             Text(text = "Поддержка",
                 color = MaterialTheme.colorScheme.secondary)
         }
-        Button(onClick = { navController.navigate("settingsScreen") },
-            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)) {
+        Button(onClick = { navController.navigate("settingsScreen") }) {
             Text(text = "Настройки",
                 color = MaterialTheme.colorScheme.secondary)
         }

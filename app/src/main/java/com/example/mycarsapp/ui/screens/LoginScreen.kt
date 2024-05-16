@@ -1,5 +1,6 @@
 package com.example.mycarsapp.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,46 +18,46 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.mycarsapp.data.signInUser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController) {
-    var textLogin by remember { mutableStateOf("") }
+    var textEmail by remember { mutableStateOf("") }
     var textPass by remember { mutableStateOf("") }
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
-            //.paint(
-            //painterResource(id = R.drawable.auto_reglog),
-            // contentScale = ContentScale.FillBounds
-            //)
             .padding(16.dp)
     ) {
         Text(text = "Добро пожаловать!",
             modifier = Modifier
                 .padding(top = 250.dp)
                 .fillMaxWidth(),
-            color = Color.Black
         )
         TextField(
-            value = textLogin,
+            value = textEmail,
             onValueChange = { newText ->
-                textLogin = newText
+                textEmail = newText
             },
             singleLine = true,
             modifier = Modifier
                 .padding(top = 20.dp)
                 .fillMaxWidth()
-                //.background(color = Color(0xFF000000), shape = MaterialTheme.shapes.small)
                 .padding(16.dp),
             textStyle = TextStyle(
                 color = Color.White
             ),
             placeholder = {
-                textLogin = "Логин"
+                textEmail = "Email"
             }
         )
         TextField(
@@ -67,7 +68,6 @@ fun LoginScreen(navController: NavController) {
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
-                //.background(color = Color(0xFF000000), shape = MaterialTheme.shapes.small)
                 .padding(16.dp),
             textStyle = TextStyle(
                 color = Color.White
@@ -76,7 +76,21 @@ fun LoginScreen(navController: NavController) {
                 textPass = "Пароль"
             }
         )
-        Button(onClick = { navController.navigate("mapScreen") },
+        Button(onClick = {
+            CoroutineScope(Dispatchers.IO).launch {
+                signInUser(textEmail, textPass, {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Toast.makeText(context, "Успешный вход", Toast.LENGTH_SHORT).show()
+                        navController.navigate("mapScreen")
+                    }
+                }, {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Toast.makeText(context, "Некорректные данные",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+                         },
             modifier = Modifier
                 .padding(top = 5.dp)
                 .fillMaxWidth(),

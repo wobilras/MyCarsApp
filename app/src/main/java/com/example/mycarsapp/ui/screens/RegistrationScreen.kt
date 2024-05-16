@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -15,37 +15,35 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.mycarsapp.R
+import com.example.mycarsapp.data.signUpUser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationScreen(navController: NavController) {
-    var textLogin by remember { mutableStateOf("Логин") }
-    var textPass by remember { mutableStateOf("Пароль") }
-    var textPass1 by remember { mutableStateOf("Повторите пароль") }
+    var textLogin by remember { mutableStateOf("") }
+    var textPass by remember { mutableStateOf("") }
+    var textPass1 by remember { mutableStateOf("") }
+    var textEmail by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .paint(
-                painterResource(id = R.drawable.auto_reglog),
-                contentScale = ContentScale.FillBounds
-            )
             .padding(16.dp)
     ) {
         Text(
             text = "Регистрация",
             modifier = Modifier
-                .padding(top = 350.dp)
-                .fillMaxWidth(),
-            color = Color.Black
+                .padding(top = 150.dp)
+                .fillMaxWidth()
         )
         TextField(
             value = textLogin,
@@ -56,13 +54,28 @@ fun RegistrationScreen(navController: NavController) {
             modifier = Modifier
                 .padding(top = 20.dp)
                 .fillMaxWidth()
-                //.background(color = Color(0xFF000000), shape = MaterialTheme.shapes.small)
                 .padding(16.dp),
             textStyle = TextStyle(
                 color = Color.White
             ),
             placeholder = {
-                textLogin = "Логин"
+                Text(text = "Логин")
+            }
+        )
+        TextField(
+            value = textEmail,
+            onValueChange = { newText ->
+                textEmail = newText
+            },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            textStyle = TextStyle(
+                color = Color.White
+            ),
+            placeholder = {
+                Text(text = "Эл. почта")
             }
         )
         TextField(
@@ -73,13 +86,12 @@ fun RegistrationScreen(navController: NavController) {
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
-                //.background(color = Color(0xFF000000), shape = MaterialTheme.shapes.small)
                 .padding(16.dp),
             textStyle = TextStyle(
                 color = Color.White
             ),
             placeholder = {
-                textPass = "Пароль"
+                Text(text = "Пароль")
             }
         )
         TextField(
@@ -90,25 +102,31 @@ fun RegistrationScreen(navController: NavController) {
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
-                //.background(color = Color(0xFF000000), shape = MaterialTheme.shapes.small)
                 .padding(16.dp),
-            textStyle = TextStyle(
-                color = Color.White
-            ),
             placeholder = {
-                textPass1 = "повторите пароль"
+                Text(text = "Повторите пароль")
             }
         )
         Button(
-            onClick = { navController.navigate("mapScreen") },
+            onClick = {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val signUpSuccess = signUpUser(textEmail, textPass, textPass1
+                        , textLogin, context)
+                    if (signUpSuccess){
+                        CoroutineScope(Dispatchers.Main).launch {
+                            navController.navigate("mapScreen")
+                        }
+                    }
+                }
+                navController.navigate("loginScreen")
+                      },
             modifier = Modifier
                 .padding(top = 5.dp)
                 .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(Color.Black)
         ) {
             Text(
                 text = "Зарегистрироваться",
-                color = Color.White
+                color = MaterialTheme.colorScheme.secondary
             )
         }
     }
