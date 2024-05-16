@@ -56,11 +56,10 @@ suspend fun signUpUser(
     login: String,
     context: Context
 ): Boolean {
-    val uid = FirebaseAuth.getInstance().uid ?: ""
+    val uid = FirebaseAuth.getInstance()
     val ref = FirebaseDatabase.getInstance(
         "https://sharingapp-9ac78-default-rtdb.europe-west1.firebasedatabase.app/")
-        .getReference("/users/$uid")
-    val user = User(uid, login, 2130968608, 5, 0, 0)
+        .getReference("/Users")
     var isNoError = false
 
     if (email.isBlank() || pass.isBlank() || passConfirm.isBlank() || login.isBlank()) {
@@ -92,7 +91,9 @@ suspend fun signUpUser(
         showToast(context, "Неизвестная ошибка")
         return false
     }
-    ref.setValue(user)
+    val userId = uid.currentUser!!.uid
+    val user = User(userId, login, 2130968608, 5, 0, 0)
+    ref.child(userId).setValue(user)
         .addOnSuccessListener {
             showToast(context, "Успешная регистрация")
             isNoError = true
