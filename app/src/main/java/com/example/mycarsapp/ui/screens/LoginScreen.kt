@@ -17,9 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mycarsapp.data.signInUser
@@ -53,11 +51,8 @@ fun LoginScreen(navController: NavController) {
                 .padding(top = 20.dp)
                 .fillMaxWidth()
                 .padding(16.dp),
-            textStyle = TextStyle(
-                color = Color.White
-            ),
             placeholder = {
-                textEmail = "Email"
+                Text(text = "Email")
             }
         )
         TextField(
@@ -69,11 +64,8 @@ fun LoginScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            textStyle = TextStyle(
-                color = Color.White
-            ),
             placeholder = {
-                textPass = "Пароль"
+                Text(text = "Пароль")
             }
         )
         Button(onClick = {

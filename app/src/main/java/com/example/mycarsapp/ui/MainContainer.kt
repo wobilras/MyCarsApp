@@ -37,12 +37,17 @@ import com.example.mycarsapp.ui.screens.LoginScreen
 import com.example.mycarsapp.ui.screens.MapScreen
 import com.example.mycarsapp.ui.screens.RegistrationScreen
 import com.example.mycarsapp.ui.screens.SettingsScreen
+import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainContainer() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val startDest:String = if (FirebaseAuth.getInstance().currentUser!= null){
+        "mapScreen"
+    }
+    else "loginScreen"
 
     Scaffold(
         bottomBar = {
@@ -101,8 +106,10 @@ fun MainContainer() {
         Box(modifier = Modifier.padding(innerPadding)) {
             NavHost(
                 navController = navController,
-                startDestination = "loginScreen"
+                startDestination = startDest
+            //"loginScreen"
             ) {
+                FirebaseAuth.getInstance().currentUser
                 composable("loginScreen") {
                     LoginScreen(navController)
                 }
