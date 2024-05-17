@@ -21,17 +21,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.mycarsapp.data.User
 
 @Composable
 fun AccountScreen(
-    userName: String,
-    userPhotoResId: Int,
-    userRating: Int,
-    tripsCompleted: Int,
-    fine: Int,
+    user: User,
     navController: NavController,
     onEditProfileClick: () -> Unit
 ) {
+
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -41,7 +39,7 @@ fun AccountScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ){
         Image(
-            painter = painterResource(id = userPhotoResId),
+            painter = painterResource(id = user.userPhotoResId!!),
             contentDescription = null,
             modifier = Modifier
                 .size(120.dp)
@@ -49,15 +47,15 @@ fun AccountScreen(
             contentScale = ContentScale.Crop
         )
 
-        Text(text = userName, style = MaterialTheme.typography.bodyLarge)
+        Text(text = user.userName!!, style = MaterialTheme.typography.bodyLarge)
 
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(text = "Рейтинг: $userRating/5")
-            Text(text = "Кол-во совершенных поездок: $tripsCompleted")
-            if (fine > 0)
-                Text(text = "У вас имеются штрафы в кол-ве $fine \n" +
+            Text(text = "Рейтинг: ${user.userRating}/5")
+            Text(text = "Кол-во совершенных поездок: ${user.tripsCompleted}")
+            if (user.fine!! > 0)
+                Text(text = "У вас имеются штрафы в кол-ве ${user.fine} \n" +
                         "Погасите их как можно скорее")
             else Text(text = "У вас отсутствуют штрафы!")
         }

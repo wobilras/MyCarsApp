@@ -1,16 +1,10 @@
 package com.example.mycarsapp.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material3.Button
@@ -21,8 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,13 +30,16 @@ fun EndOfRent( navController: NavController) {
     val photoNumTop = 0
     val photoNumBottom = 0
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         Text(text = "Добавьте фото авто с каждой стороны", fontWeight = FontWeight.Bold)
 
         Box(
             modifier = Modifier
                 //.fillMaxSize()
-                .size(400.dp,650.dp)
+                //.size(400.dp,650.dp)
                 .padding(16.dp)
         ) {
             Button(
@@ -52,8 +47,8 @@ fun EndOfRent( navController: NavController) {
                 modifier = Modifier
                     .align(Alignment.CenterStart),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -66,8 +61,8 @@ fun EndOfRent( navController: NavController) {
                 modifier = Modifier
                     .align(Alignment.CenterEnd),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -88,8 +83,8 @@ fun EndOfRent( navController: NavController) {
                 modifier = Modifier
                     .align(Alignment.TopCenter),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -102,8 +97,8 @@ fun EndOfRent( navController: NavController) {
                 modifier = Modifier
                     .align(Alignment.BottomCenter),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -114,8 +109,8 @@ fun EndOfRent( navController: NavController) {
         }
         Button(onClick = { navController.navigate("mapScreen") },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Black,
-                contentColor = Color.White
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.secondary
             )) {
             Text(text = "Завершить")
         }

@@ -18,6 +18,7 @@ import kotlinx.coroutines.tasks.await
 
 var carList: ArrayList<Car> = arrayListOf()
 private lateinit var firebaseRef: DatabaseReference
+var user = User()
 
 fun firebaseGetCar(searchText: String, onDataLoaded: (ArrayList<Car>, SearchStatus) -> Unit) {
     firebaseRef = FirebaseDatabase.getInstance().getReference("Cars")
@@ -113,6 +114,26 @@ fun signInUser(email: String, pass: String,
             onFailure()
     }
 }
+
+suspend fun getUser(uid: String): User {
+    try {
+        val userRef = FirebaseDatabase.getInstance().getReference("Users").child(uid)
+        userRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    user = snapshot.getValue(User::class.java)!!
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("DB ERROR", "Failed to get data from DB: ${error.message}")
+            }
+        })
+    } catch (e: Exception) {
+        Log.e("ERROR", "Failed to get data from DB: ${e.message}")
+    }
+    return user
+}
+
 private fun showToast(context: Context, message: String) {
     Handler(Looper.getMainLooper()).post {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

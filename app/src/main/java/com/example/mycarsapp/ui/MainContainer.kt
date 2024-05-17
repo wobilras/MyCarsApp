@@ -28,6 +28,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.mycarsapp.R
 import com.example.mycarsapp.data.carList
+import com.example.mycarsapp.data.getUser
+import com.example.mycarsapp.data.user
 import com.example.mycarsapp.ui.screens.AccountScreen
 import com.example.mycarsapp.ui.screens.CarInfoScreen
 import com.example.mycarsapp.ui.screens.CarListScreen
@@ -38,6 +40,9 @@ import com.example.mycarsapp.ui.screens.MapScreen
 import com.example.mycarsapp.ui.screens.RegistrationScreen
 import com.example.mycarsapp.ui.screens.SettingsScreen
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -88,7 +93,11 @@ fun MainContainer() {
                     }
                     Spacer(Modifier.weight(1f, true))
                     Button(
-                        onClick = { navController.navigate("accountScreen") },
+                        onClick = {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                user = getUser(FirebaseAuth.getInstance().currentUser!!.uid)
+                            }
+                            navController.navigate("accountScreen") },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.Black,
                             contentColor = Color.White
@@ -115,11 +124,7 @@ fun MainContainer() {
                 }
                 composable("accountScreen") {
                     AccountScreen(
-                        userName = "Jone Brit",
-                        userPhotoResId = R.drawable.ic_launcher_foreground,
-                        userRating = 5,
-                        tripsCompleted = 12,
-                        fine = 1,
+                        user,
                         navController = navController
                     ) {}
                 }

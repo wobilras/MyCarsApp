@@ -12,12 +12,12 @@ data class Car(
 )
 
 data class User(
-    val uid: String,
-    val userName: String,
-    val userPhotoResId: Int,
-    val userRating: Int,
-    val tripsCompleted: Int,
-    val fine: Int
+    val uid: String? = "",
+    val userName: String? = "",
+    val userPhotoResId: Int? = 2130968608,
+    val userRating: Int? = 0,
+    val tripsCompleted: Int? = 0,
+    val fine: Int? = 0
 )
 
 enum class SearchStatus {

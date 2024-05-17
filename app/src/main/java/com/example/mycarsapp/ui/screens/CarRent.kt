@@ -54,7 +54,7 @@ fun CarRent(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(text = carName, fontWeight = FontWeight.Bold, fontSize = 15.sp)
-                Text(text = licensePlate, fontSize = 10.sp)
+                Text(text = licensePlate, fontWeight = FontWeight.Bold, fontSize = 15.sp)
             }
             Image(
                 modifier = Modifier
