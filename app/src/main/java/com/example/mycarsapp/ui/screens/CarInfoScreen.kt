@@ -76,7 +76,7 @@ fun CarInfoScreen(car: Car,  navController: NavController) {
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
-                        onClick = { navController.navigate("carRent")},
+                        onClick = { navController.navigate("carRent/${car.id}")},
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)

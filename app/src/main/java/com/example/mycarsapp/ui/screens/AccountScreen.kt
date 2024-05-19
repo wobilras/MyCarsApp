@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mycarsapp.data.User
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun AccountScreen(
@@ -29,7 +30,7 @@ fun AccountScreen(
     navController: NavController,
     onEditProfileClick: () -> Unit
 ) {
-
+    val finishActivity = LocalFinish.current
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -74,7 +75,11 @@ fun AccountScreen(
             Text(text = "Настройки",
                 color = MaterialTheme.colorScheme.secondary)
         }
-        Text(text = "https://yandex.ru/legal/maps_termsofuse - " +
-                "«Условия использования сервиса Яндекс.Карты")
+        Button(onClick = { FirebaseAuth.getInstance().signOut()
+            finishActivity()
+        }) {
+            Text(text = "Выйти из аккаунта",
+                color = MaterialTheme.colorScheme.secondary)
+        }
     }
 }

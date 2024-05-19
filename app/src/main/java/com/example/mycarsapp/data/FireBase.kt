@@ -1,10 +1,12 @@
 package com.example.mycarsapp.data
 
 import android.content.Context
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.runtime.mutableStateMapOf
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.ktx.auth
@@ -19,6 +21,7 @@ import kotlinx.coroutines.tasks.await
 var carList: ArrayList<Car> = arrayListOf()
 private lateinit var firebaseRef: DatabaseReference
 var user = User()
+val photosMap = mutableStateMapOf<String, MutableList<Uri>>()
 
 fun firebaseGetCar(searchText: String, onDataLoaded: (ArrayList<Car>, SearchStatus) -> Unit) {
     firebaseRef = FirebaseDatabase.getInstance().getReference("Cars")

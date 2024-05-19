@@ -1,5 +1,8 @@
 package com.example.mycarsapp.ui.screens
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +16,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -22,13 +30,29 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mycarsapp.R
+import com.example.mycarsapp.data.photosMap
 
 @Composable
-fun EndOfRent( navController: NavController) {
-    val photoNumRight = 0
-    val photoNumLeft = 0
-    val photoNumTop = 0
-    val photoNumBottom = 0
+fun EndOfRent( navController: NavController, carId: String) {
+    var photoNumRight by remember { mutableIntStateOf(0) }
+    var photoNumLeft by remember { mutableIntStateOf(0) }
+    var photoNumTop by remember { mutableIntStateOf(0) }
+    var photoNumBottom by remember { mutableIntStateOf(0) }
+    var currentSide by remember { mutableStateOf("") }
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            photosMap.getOrPut(carId) { mutableListOf() }.add(uri)
+            when (currentSide) {
+                "Left" -> photoNumLeft++
+                "Right" -> photoNumRight++
+                "Top" -> photoNumTop++
+                "Bottom" -> photoNumBottom++
+            }
+        }
+    }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -43,7 +67,9 @@ fun EndOfRent( navController: NavController) {
                 .padding(16.dp)
         ) {
             Button(
-                onClick = { /* Действие при нажатии */ },
+                onClick = {
+                    currentSide = "Left"
+                    launcher.launch("image/*") },
                 modifier = Modifier
                     .align(Alignment.CenterStart),
                 colors = ButtonDefaults.buttonColors(
@@ -57,7 +83,9 @@ fun EndOfRent( navController: NavController) {
                 }
             }
             Button(
-                onClick = { /* Действие при нажатии */ },
+                onClick = {
+                    currentSide = "Right"
+                    launcher.launch("image/*") },
                 modifier = Modifier
                     .align(Alignment.CenterEnd),
                 colors = ButtonDefaults.buttonColors(
@@ -79,7 +107,9 @@ fun EndOfRent( navController: NavController) {
                 contentScale = ContentScale.Fit
             )
             Button(
-                onClick = { /* Действие при нажатии */ },
+                onClick = {
+                    currentSide = "Top"
+                    launcher.launch("image/*") },
                 modifier = Modifier
                     .align(Alignment.TopCenter),
                 colors = ButtonDefaults.buttonColors(
@@ -93,7 +123,9 @@ fun EndOfRent( navController: NavController) {
                 }
             }
             Button(
-                onClick = { /* Действие при нажатии */ },
+                onClick = {
+                    currentSide = "Bottom"
+                    launcher.launch("image/*") },
                 modifier = Modifier
                     .align(Alignment.BottomCenter),
                 colors = ButtonDefaults.buttonColors(

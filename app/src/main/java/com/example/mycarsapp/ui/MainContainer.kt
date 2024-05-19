@@ -137,7 +137,7 @@ fun MainContainer() {
                     RegistrationScreen(navController)
                 }
                 composable("mapScreen") {
-                    MapScreen()
+                    MapScreen(navController)
                 }
                 composable(
                     "carInfoScreen/{carName}",
@@ -147,17 +147,20 @@ fun MainContainer() {
                     val car = carList.find { it.name == carName } ?: carList.first()
                     CarInfoScreen(car = car, navController)
                 }
-                composable("carRent") {
-                    CarRent(
-                        carName = "Civ",
-                        licensePlate = "B004KO69",
-                        fuelLevel = 100,
-                        bookingTime = "23 mins",
-                        navController
-                    ) {}
+                composable(
+                    "carRent/{carId}",
+                    arguments = listOf(navArgument("carId") { type = NavType.IntType })
+                ) { backStackEntry ->
+                    val carId = backStackEntry.arguments?.getInt("carId") ?: 0
+                    val car = carList.find { it.id == carId } ?: carList.first()
+                    CarRent(car = car, navController)
                 }
-                composable("endOfRent") {
-                    EndOfRent(navController)
+                composable(
+                    "endOfRent/{carId}",
+                    arguments = listOf(navArgument("carId") { type = NavType.IntType })
+                ) { backStackEntry ->
+                    val carId = backStackEntry.arguments?.getInt("carId") ?: 0
+                    EndOfRent(carId = carId.toString(), navController = navController)
                 }
                 composable("settingsScreen") {
                     SettingsScreen()
