@@ -12,7 +12,9 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.mycarsapp.R
 import com.example.mycarsapp.data.getThemeState
 import com.example.mycarsapp.data.setThemeState
 
@@ -34,11 +36,10 @@ fun SettingsScreen() {
         Switch(checked = isDarkTheme, onCheckedChange = {
             isDarkTheme = it
             setThemeState(context,it)
-            Toast.makeText(context,"Для смены темы приложение будет перезапущено", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.restart, Toast.LENGTH_SHORT).show()
             finishActivity()
         })
-        Text(text = "https://yandex.ru/legal/maps_termsofuse - " +
-                "«Условия использования сервиса Яндекс.Карты")
+        Text(text = stringResource(id = R.string.terms))
     }
 
 }

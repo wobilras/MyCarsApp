@@ -25,8 +25,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mycarsapp.R
@@ -58,7 +58,7 @@ fun EndOfRent( navController: NavController, carId: String) {
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Text(text = "Добавьте фото авто с каждой стороны", fontWeight = FontWeight.Bold)
+        Text(text = stringResource(id = R.string.addAuto), fontWeight = FontWeight.Bold)
 
         Box(
             modifier = Modifier
@@ -144,13 +144,7 @@ fun EndOfRent( navController: NavController, carId: String) {
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.secondary
             )) {
-            Text(text = "Завершить")
+            Text(text = stringResource(id = R.string.end))
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewEnd(){
-    //EndOfRent()
 }

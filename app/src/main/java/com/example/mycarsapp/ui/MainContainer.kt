@@ -5,12 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -20,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -39,12 +39,13 @@ import com.example.mycarsapp.ui.screens.LoginScreen
 import com.example.mycarsapp.ui.screens.MapScreen
 import com.example.mycarsapp.ui.screens.RegistrationScreen
 import com.example.mycarsapp.ui.screens.SettingsScreen
+import com.example.mycarsapp.ui.theme.Black
+import com.example.mycarsapp.ui.theme.White
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainContainer() {
     val navController = rememberNavController()
@@ -66,21 +67,21 @@ fun MainContainer() {
                     Button(
                         onClick = { navController.navigate("carListScreen") },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Black,
-                            contentColor = Color.White
+                            containerColor = Black,
+                            contentColor = White
                         )
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Icon(Icons.Filled.List, contentDescription = "Login")
-                            Text(text = "Список")
+                            Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Login")
+                            Text(text = stringResource(id = R.string.list))
                         }
                     }
                     Spacer(Modifier.weight(1f, true))
                     Button(
                         onClick = { navController.navigate("mapScreen") },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Black,
-                            contentColor = Color.White
+                            containerColor = Black,
+                            contentColor = White
                         )
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -88,7 +89,7 @@ fun MainContainer() {
                                 painterResource(id = R.drawable.map),
                                 contentDescription = "Main"
                             )
-                            Text(text = "Карта")
+                            Text(text = stringResource(id = R.string.map))
                         }
                     }
                     Spacer(Modifier.weight(1f, true))
@@ -99,13 +100,13 @@ fun MainContainer() {
                             }
                             navController.navigate("accountScreen") },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Black,
-                            contentColor = Color.White
+                            containerColor = Black,
+                            contentColor = White
                         )
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Icon(Icons.Filled.Person, contentDescription = "Main")
-                            Text(text = "Профиль")
+                            Text(text = stringResource(id = R.string.profile))
                         }
                     }
                 }

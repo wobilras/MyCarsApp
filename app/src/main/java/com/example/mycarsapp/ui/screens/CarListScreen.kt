@@ -20,7 +20,6 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -34,16 +33,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.mycarsapp.R
 import com.example.mycarsapp.data.Car
 import com.example.mycarsapp.data.SearchStatus
 import com.example.mycarsapp.data.addToSearchHistory
@@ -51,11 +51,12 @@ import com.example.mycarsapp.data.carList
 import com.example.mycarsapp.data.clearSearchHistory
 import com.example.mycarsapp.data.firebaseGetCar
 import com.example.mycarsapp.data.getSearchHistory
+import com.example.mycarsapp.ui.theme.largeText
+import com.example.mycarsapp.ui.theme.mediumText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun CarListScreen(onCarSelected: (Car) -> Unit) {
     var searchText by rememberSaveable { mutableStateOf("") }
@@ -74,7 +75,7 @@ fun CarListScreen(onCarSelected: (Car) -> Unit) {
                 .onFocusChanged { focusState ->
                     showSearchHistory = focusState.isFocused
                 },
-            placeholder = { Text("Search...") },
+            placeholder = { Text(stringResource(id = R.string.search)) },
             singleLine = true,
             trailingIcon = {
                 if (searchText.isNotBlank()) {
@@ -129,7 +130,7 @@ fun CarListScreen(onCarSelected: (Car) -> Unit) {
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text("Error occurred", modifier = Modifier.padding(16.dp))
+                        Text(stringResource(id = R.string.error_occurred), modifier = Modifier.padding(16.dp))
                         Button(
                             onClick = {
                                 searchStatus = SearchStatus.LOADING
@@ -144,13 +145,13 @@ fun CarListScreen(onCarSelected: (Car) -> Unit) {
                             colors = ButtonDefaults.buttonColors(Color.Black)
 
                         ) {
-                            Text("Refresh")
+                            Text(stringResource(id = R.string.refresh))
                         }
                     }
                 }
 
                 SearchStatus.ERROR_NOT_FOUND -> {
-                    Text("Ничего не найдено", modifier = Modifier.padding(16.dp))
+                    Text(stringResource(id = R.string.notFound), modifier = Modifier.padding(16.dp))
                 }
             }
         }
@@ -183,7 +184,7 @@ fun SearchHistory(
         colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)
     ) {
         Text(
-            "Очистить историю",
+            stringResource(id = R.string.clear_history),
             color = MaterialTheme.colorScheme.secondary
         )
     }
@@ -201,7 +202,7 @@ fun CarListItem(car: Car, onCarSelected: (Car) -> Unit) {
     ) {
         Text(
             text = car.name!!,
-            fontSize = 20.sp,
+            fontSize = largeText,
             fontWeight = FontWeight.Bold,
             style = LocalTextStyle.current
         )
@@ -218,15 +219,15 @@ fun CarListItem(car: Car, onCarSelected: (Car) -> Unit) {
         Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "${car.hourlyRate} $/hour",
-                    fontSize = 16.sp,
-                    color = Color.Gray
+                    text = "${car.hourlyRate} $/в час",
+                    fontSize = mediumText,
+                    color = Gray
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
                     text = car.distance!!,
-                    fontSize = 16.sp,
-                    color = Color.Gray
+                    fontSize = mediumText,
+                    color = Gray
                 )
             }
         }

@@ -7,6 +7,8 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.core.content.ContextCompat.getString
+import com.example.mycarsapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.ktx.auth
@@ -67,11 +69,11 @@ suspend fun signUpUser(
     var isNoError = false
 
     if (email.isBlank() || pass.isBlank() || passConfirm.isBlank() || login.isBlank()) {
-        showToast(context, "Заполните ВСЕ поля")
+        showToast(context, getString(context,R.string.fill_all))
         return false
     }
     if (pass != passConfirm) {
-        showToast(context, "Пароли не совпадают")
+        showToast(context, getString(context,R.string.password_not_eq))
         return false
     }
     try {
@@ -79,37 +81,41 @@ suspend fun signUpUser(
     } catch (e: FirebaseAuthException) {
         return when (e.errorCode) {
             "ERROR_INVALID_EMAIL" ->{
-                showToast(context, "Неверный формат email")
+                showToast(context, getString(context,R.string.not_valid_email))
                 false
             }
             "ERROR_WEAK_PASSWORD" -> {
-                showToast(context, "Слабый пароль")
+                showToast(context, getString(context, R.string.weak_pass))
                 false
             }
             else -> {
-                showToast(context, "Неизвестная ошибка")
+                showToast(context, getString(context,R.string.unknown_error))
                 false
             }
         }
     } catch (e: Exception) {
-        showToast(context, "Неизвестная ошибка")
+        showToast(context, getString(context,R.string.unknown_error))
         return false
     }
     val userId = uid.currentUser!!.uid
     val user = User(userId, login, 2130968608, 5, 0, 0)
     ref.child(userId).setValue(user)
         .addOnSuccessListener {
-            showToast(context, "Успешная регистрация")
+            showToast(context, getString(context,R.string.fill_all))
             isNoError = true
         }
         .addOnFailureListener {
-            showToast(context, "Не получилось записать в БД")
+            showToast(context, getString(context,R.string.cant_write_to_DB))
             isNoError = false
         }
     return isNoError
 }
 fun signInUser(email: String, pass: String,
                onSuccess: () -> Unit, onFailure: () -> Unit) {
+    if (email.isBlank() || pass.isBlank()) {
+        onFailure()
+        return
+    }
     Firebase.auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
         if (it.isSuccessful) {
             onSuccess()

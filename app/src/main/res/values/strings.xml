@@ -1,12 +1,49 @@
 <resources>
     <string name="app_name">MyCarsApp</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="textLogin">Логин</string>
-    <string name="textPass">Пароль</string>
-    <string name="fuelLvl">Уровень топлива</string>
+    <string name="list">Список</string>
+    <string name="map">Карта</string>
+    <string name="profile">Профиль</string>
+    <string name="terms">https://yandex.ru/legal/maps_termsofuse -\n
+                «Условия использования сервиса Яндекс.Карты»</string>
+    <string name="restart">Для смены темы приложение будет перезапущено</string>
+    <string name="registration">Регистрация</string>
+    <string name="Login">Логин</string>
+    <string name="email">Эл. почта</string>
+    <string name="Pass">Пароль</string>
+    <string name="repeatPass">Повторите пароль</string>
+    <string name="register">Зарегистрироваться</string>
     <string name="welcome">Добро пожаловать!</string>
+    <string name="successful_enter">Успешный вход</string>
+    <string name="wrong_data">Некорректные данные</string>
+    <string name="enter">Войти</string>
     <string name="addAuto">Добавьте фото авто с каждой стороны</string>
     <string name="end">Завершить</string>
+    <string name="fuelLvl">Уровень топлива: </string>
+    <string name="booking_time">Время аренды:</string>
+    <string name="volume">Звук</string>
+    <string name="Lock_Unlock">Закрыть/открыть авто</string>
+    <string name="Finish_trip">Завершить поездку</string>
+    <string name="search">Search…</string>
+    <string name="error_occurred">Произошла ошибка</string>
+    <string name="refresh">Обновить</string>
+    <string name="notFound">Ничего не найдено</string>
+    <string name="clear_history">Очистить историю</string>
+    <string name="book">Забронировать</string>
+    <string name="rate">Рейтинг:</string>
+    <string name="trips_count">Кол-во совершенных поездок:</string>
+    <string name="you_have_fine">У вас имеются штрафы в кол-ве</string>
+    <string name="pay_as_possible">Погасите их как можно скорее</string>
+    <string name="dont_have_fine">У вас отсутствуют штрафы!</string>
+    <string name="edit">Редактировать данные</string>
+    <string name="support">Поддержка</string>
+    <string name="settings">Настройки</string>
+    <string name="sign_out">Выйти из аккаунта</string>
+    <string name="fill_all">Заполните ВСЕ поля</string>
+    <string name="password_not_eq">Пароли не совпадают</string>
+    <string name="not_valid_email">Неверный формат email</string>
+    <string name="weak_pass">Слабый пароль</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="cant_write_to_DB">Не получилось записать в БД</string>
 
 </resources>

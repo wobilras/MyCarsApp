@@ -15,14 +15,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mycarsapp.R
@@ -54,12 +56,12 @@ fun CarInfoScreen(car: Car,  navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Fuel Level: ${car.fuelLevel}%")
+            Text(text = stringResource(id = R.string.fuelLvl) +" ${car.fuelLevel}%")
             Spacer(modifier = Modifier.width(16.dp))
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
-                    .background(Color.Black)
+                    .background(MaterialTheme.colorScheme.primary)
             ) {
                 Column(
                     //verticalArrangement = Arrangement.Center,
@@ -67,12 +69,12 @@ fun CarInfoScreen(car: Car,  navController: NavController) {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     Text(
-                        text = "${car.hourlyRate} \$/hour",
-                        color = Color.White
+                        text = "${car.hourlyRate} $/в час",
+                        color = MaterialTheme.colorScheme.secondary
                     )
                     Text(
                         text = "Расстояние до авто ${car.distance}",
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.secondary,
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
@@ -80,20 +82,23 @@ fun CarInfoScreen(car: Car,  navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
-                            .padding(start = 30.dp, end = 30.dp,
-                                top = 5.dp, bottom = 5.dp),
+                            .padding(
+                                start = 30.dp, end = 30.dp,
+                                top = 5.dp, bottom = 5.dp
+                            ),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.White,
-                            contentColor = Color.Black)
+                            containerColor = MaterialTheme.colorScheme.secondary,
+                            contentColor = MaterialTheme.colorScheme.primary)
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Image(
                                 painter = painterResource(id = R.drawable.car_rental),
                                 contentDescription = "Car Icon",
-                                modifier = Modifier.size(24.dp)
+                                modifier = Modifier.size(24.dp),
+                                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(text = "Забронировать")
+                            Text(text = stringResource(id = R.string.book))
                         }
                     }
                 }

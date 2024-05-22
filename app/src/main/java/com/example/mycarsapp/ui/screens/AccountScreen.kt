@@ -19,8 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.mycarsapp.R
 import com.example.mycarsapp.data.User
 import com.google.firebase.auth.FirebaseAuth
 
@@ -53,32 +55,32 @@ fun AccountScreen(
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(text = "Рейтинг: ${user.userRating}/5")
-            Text(text = "Кол-во совершенных поездок: ${user.tripsCompleted}")
+            Text(text = stringResource(id = R.string.rate)+" ${user.userRating}/5")
+            Text(text = stringResource(id = R.string.trips_count)+" ${user.tripsCompleted}")
             if (user.fine!! > 0)
-                Text(text = "У вас имеются штрафы в кол-ве ${user.fine} \n" +
-                        "Погасите их как можно скорее")
-            else Text(text = "У вас отсутствуют штрафы!")
+                Text(text = stringResource(id = R.string.you_have_fine)+" ${user.fine} \n" +
+                        stringResource(id = R.string.pay_as_possible))
+            else Text(text = stringResource(id = R.string.dont_have_fine))
         }
 
         Button(onClick = { /* Handle edit profile click */ },
             colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)) {
-            Text(text = "Редактировать данные",
+            Text(text = stringResource(id = R.string.edit),
                 color = MaterialTheme.colorScheme.secondary)
         }
         Button(onClick = { /* TODO */ },
             colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)) {
-            Text(text = "Поддержка",
+            Text(text = stringResource(id = R.string.support),
                 color = MaterialTheme.colorScheme.secondary)
         }
         Button(onClick = { navController.navigate("settingsScreen") }) {
-            Text(text = "Настройки",
+            Text(text = stringResource(id = R.string.settings),
                 color = MaterialTheme.colorScheme.secondary)
         }
         Button(onClick = { FirebaseAuth.getInstance().signOut()
             finishActivity()
         }) {
-            Text(text = "Выйти из аккаунта",
+            Text(text = stringResource(id = R.string.sign_out),
                 color = MaterialTheme.colorScheme.secondary)
         }
     }

@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -11,12 +13,14 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.mycarsapp.R
 import com.example.mycarsapp.data.signUpUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,19 +28,20 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RegistrationScreen(navController: NavController) {
-    var textLogin by remember { mutableStateOf("") }
-    var textPass by remember { mutableStateOf("") }
-    var textPass1 by remember { mutableStateOf("") }
-    var textEmail by remember { mutableStateOf("") }
+    var textLogin by rememberSaveable { mutableStateOf("") }
+    var textPass by rememberSaveable { mutableStateOf("") }
+    var textPass1 by rememberSaveable { mutableStateOf("") }
+    var textEmail by rememberSaveable { mutableStateOf("") }
     val context = LocalContext.current
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = "Регистрация",
+            text = stringResource(id = R.string.registration),
             modifier = Modifier
                 .padding(top = 150.dp)
                 .fillMaxWidth()
@@ -52,7 +57,7 @@ fun RegistrationScreen(navController: NavController) {
                 .fillMaxWidth()
                 .padding(16.dp),
             placeholder = {
-                Text(text = "Логин")
+                Text(text = stringResource(id = R.string.Login))
             }
         )
         TextField(
@@ -65,7 +70,7 @@ fun RegistrationScreen(navController: NavController) {
                 .fillMaxWidth()
                 .padding(16.dp),
             placeholder = {
-                Text(text = "Эл. почта")
+                Text(text = stringResource(id = R.string.email))
             }
         )
         TextField(
@@ -78,7 +83,7 @@ fun RegistrationScreen(navController: NavController) {
                 .fillMaxWidth()
                 .padding(16.dp),
             placeholder = {
-                Text(text = "Пароль")
+                Text(text = stringResource(id = R.string.Pass))
             }
         )
         TextField(
@@ -91,7 +96,7 @@ fun RegistrationScreen(navController: NavController) {
                 .fillMaxWidth()
                 .padding(16.dp),
             placeholder = {
-                Text(text = "Повторите пароль")
+                Text(text = stringResource(id = R.string.repeatPass))
             }
         )
         Button(
@@ -112,7 +117,7 @@ fun RegistrationScreen(navController: NavController) {
                 .fillMaxWidth(),
         ) {
             Text(
-                text = "Зарегистрироваться",
+                text = stringResource(id = R.string.register),
                 color = MaterialTheme.colorScheme.secondary
             )
         }
