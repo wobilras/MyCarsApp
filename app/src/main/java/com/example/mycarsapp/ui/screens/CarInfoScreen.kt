@@ -27,9 +27,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.mycarsapp.R
 import com.example.mycarsapp.data.Car
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun CarInfoScreen(car: Car,  navController: NavController) {
     Column(
@@ -43,8 +46,8 @@ fun CarInfoScreen(car: Car,  navController: NavController) {
             Text(text = car.licensePlate!!)
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Image(
-            painter = painterResource(id = car.imageResId!!),
+        GlideImage(
+            model = car.imageResId!!,
             contentDescription = "Car Image",
             modifier = Modifier
                 .fillMaxWidth()

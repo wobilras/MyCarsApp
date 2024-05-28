@@ -71,6 +71,9 @@ dependencies {
     //firebase
     implementation("com.google.firebase:firebase-database:21.0.0")
     implementation("com.google.firebase:firebase-auth:23.0.0")
+    implementation("com.google.firebase:firebase-storage-ktx:21.0.0")
+    //glide
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")

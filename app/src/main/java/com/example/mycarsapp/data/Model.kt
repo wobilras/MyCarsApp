@@ -4,7 +4,7 @@ package com.example.mycarsapp.data
 data class Car(
     val id: Int? = 0,
     val name: String? = "",
-    val imageResId: Int? = 0,
+    val imageResId: String? = "",
     val hourlyRate: Float? = 0f,
     val distance: String? = "",
     val licensePlate: String? = "",

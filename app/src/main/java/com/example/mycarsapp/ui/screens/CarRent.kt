@@ -1,6 +1,5 @@
 package com.example.mycarsapp.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,6 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.mycarsapp.R
 import com.example.mycarsapp.data.Car
 import com.example.mycarsapp.ui.theme.White
@@ -217,6 +218,7 @@ fun CarRent(car: Car, navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun CarRentContent(car: Car, onDismiss: () -> Unit, navController: NavController) {
     Column(
@@ -233,11 +235,12 @@ fun CarRentContent(car: Car, onDismiss: () -> Unit, navController: NavController
             Text(text = "${car.licensePlate}", color = MaterialTheme.colorScheme.secondary,
                 fontWeight = FontWeight.Bold, fontSize = mediumText)
         }
-        Image(
+        GlideImage(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(200.dp)
                 .padding(bottom = 16.dp, top = 16.dp),
-            painter = painterResource(id = car.imageResId!!),
+            model = car.imageResId!!,
             contentDescription = "${car.imageResId}"
         )
         Column(
