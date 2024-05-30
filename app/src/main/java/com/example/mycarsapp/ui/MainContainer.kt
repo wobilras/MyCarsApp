@@ -60,7 +60,7 @@ fun MainContainer() {
             if (navBackStackEntry?.destination?.route !in listOf(
                     "loginScreen",
                     "registrationScreen",
-                    "endOfRent"
+                    "endOfRent/{carId}"
                 )
             ) {
                 BottomAppBar(containerColor = Color.Black) {

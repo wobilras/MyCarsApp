@@ -189,8 +189,10 @@ fun CarRent(car: Car, navController: NavController) {
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp)
                         ) {
-                            Text(text = car.name!!, fontWeight = FontWeight.Bold, fontSize = 15.sp)
-                            Text(text = car.licensePlate!!, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                            Text(text = car.name!!, fontWeight = FontWeight.Bold, fontSize = 15.sp,
+                                color = MaterialTheme.colorScheme.primary)
+                            Text(text = car.licensePlate!!, fontWeight = FontWeight.Bold,
+                                fontSize = 15.sp, color = MaterialTheme.colorScheme.primary)
                         }
                     }
                 }
@@ -232,9 +234,9 @@ fun CarRentContent(car: Car, onDismiss: () -> Unit, navController: NavController
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "${car.name}", color = MaterialTheme.colorScheme.secondary,
+            Text(text = "${car.name}", color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold, fontSize = mediumText)
-            Text(text = "${car.licensePlate}", color = MaterialTheme.colorScheme.secondary,
+            Text(text = "${car.licensePlate}", color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold, fontSize = mediumText)
         }
         GlideImage(

@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mycarsapp.R
 import com.example.mycarsapp.data.photosMap
+import com.example.mycarsapp.ui.theme.small_padding
 
 @Composable
 fun EndOfRent( navController: NavController, carId: String) {
@@ -57,15 +58,11 @@ fun EndOfRent( navController: NavController, carId: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
+            .padding(small_padding)
     ) {
         Text(text = stringResource(id = R.string.addAuto), fontWeight = FontWeight.Bold)
 
-        Box(
-            modifier = Modifier
-                //.fillMaxSize()
-                //.size(400.dp,650.dp)
-                .padding(16.dp)
-        ) {
+        Box {
             Button(
                 onClick = {
                     currentSide = "Left"
@@ -99,11 +96,12 @@ fun EndOfRent( navController: NavController, carId: String) {
                 }
             }
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                painter = painterResource(id = R.drawable.auto_front_1),
                 contentDescription = "Car Image",
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .padding(top = 60.dp, bottom = 110.dp),
                 contentScale = ContentScale.Fit
             )
             Button(
@@ -122,29 +120,36 @@ fun EndOfRent( navController: NavController, carId: String) {
                     Icon(Icons.Filled.AddCircle, contentDescription = "Top")
                 }
             }
-            Button(
-                onClick = {
-                    currentSide = "Bottom"
-                    launcher.launch("image/*") },
-                modifier = Modifier
-                    .align(Alignment.BottomCenter),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.secondary
-                )
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "$photoNumBottom")
-                    Icon(Icons.Filled.AddCircle, contentDescription = "Bottom")
+            Box(modifier = Modifier.align(Alignment.BottomCenter)) {
+                Column {
+                    Button(
+                        onClick = {
+                            currentSide = "Bottom"
+                            launcher.launch("image/*")
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.secondary
+                        )
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(text = "$photoNumBottom")
+                            Icon(Icons.Filled.AddCircle, contentDescription = "Bottom")
+                        }
+                    }
+                    Button(
+                        onClick = { navController.navigate("mapScreen") },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.secondary
+                        )
+                    ) {
+                        Text(text = stringResource(id = R.string.end))
+                    }
                 }
             }
-        }
-        Button(onClick = { navController.navigate("mapScreen") },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.secondary
-            )) {
-            Text(text = stringResource(id = R.string.end))
         }
     }
 }

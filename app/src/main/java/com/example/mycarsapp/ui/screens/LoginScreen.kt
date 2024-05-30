@@ -38,6 +38,8 @@ fun LoginScreen(navController: NavController) {
             .fillMaxSize()
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
+            //.paint(painterResource(id =R.drawable.auto_reglog))
+
     ) {
         Text(
             text = stringResource(id = R.string.welcome),
