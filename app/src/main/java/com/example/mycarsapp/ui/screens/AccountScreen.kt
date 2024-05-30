@@ -42,7 +42,7 @@ fun AccountScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ){
         Image(
-            painter = painterResource(id = user.userPhotoResId!!),
+            painter = painterResource(id = R.drawable.profile),
             contentDescription = null,
             modifier = Modifier
                 .size(120.dp)

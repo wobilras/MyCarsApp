@@ -40,6 +40,8 @@ import com.example.mycarsapp.R
 import com.example.mycarsapp.data.Car
 import com.example.mycarsapp.ui.theme.White
 import com.example.mycarsapp.ui.theme.mediumText
+import com.example.mycarsapp.ui.theme.medium_padding
+import com.example.mycarsapp.ui.theme.small_padding
 import kotlinx.coroutines.launch
 
 /*
@@ -173,7 +175,7 @@ fun CarRent(car: Car, navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
-                            .background(Color.White)
+                            .background(White)
                             .clickable {
                                 coroutineScope.launch {
                                     sheetState.show()
@@ -239,7 +241,7 @@ fun CarRentContent(car: Car, onDismiss: () -> Unit, navController: NavController
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .padding(bottom = 16.dp, top = 16.dp),
+                .padding(bottom = medium_padding, top = medium_padding),
             model = car.imageResId!!,
             contentDescription = "${car.imageResId}"
         )
@@ -250,7 +252,7 @@ fun CarRentContent(car: Car, onDismiss: () -> Unit, navController: NavController
             Text(
                 text = stringResource(id = R.string.fuelLvl) +" ${car.fuelLevel}%",
                 color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = small_padding)
             )
             Box(
                 modifier = Modifier

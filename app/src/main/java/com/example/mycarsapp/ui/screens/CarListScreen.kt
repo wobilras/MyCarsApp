@@ -54,6 +54,7 @@ import com.example.mycarsapp.data.firebaseGetCar
 import com.example.mycarsapp.data.getSearchHistory
 import com.example.mycarsapp.ui.theme.largeText
 import com.example.mycarsapp.ui.theme.mediumText
+import com.example.mycarsapp.ui.theme.medium_padding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -227,7 +228,7 @@ fun CarListItem(car: Car, onCarSelected: (Car) -> Unit) {
                     fontSize = mediumText,
                     color = Gray
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(medium_padding))
                 Text(
                     text = car.distance!!,
                     fontSize = mediumText,
