@@ -253,7 +253,7 @@ fun CarRentContent(car: Car, onDismiss: () -> Unit, navController: NavController
         ) {
             Text(
                 text = stringResource(id = R.string.fuelLvl) +" ${car.fuelLevel}%",
-                color = MaterialTheme.colorScheme.secondary,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(bottom = small_padding)
             )
             Box(
